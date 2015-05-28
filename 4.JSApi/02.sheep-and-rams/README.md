@@ -1,15 +1,8 @@
-<h1>Бикове и крави</h1>
+<h1>Sheep and Rams</h1>
 
-Целта на играта е да откриете избраното от компютъра число, с минимален брой въпроси. Компютърът дава броя на съвпаденията за всеки въпрос.
+Player against computer game. The goal is a number to be guessed with minimal tries. The computer prints the matches after every try:
 
-<h4>Правила</h4>
+- If there are matches in the players number at the right places, they are rams
+- If there are matches in the players number but they are mixed, they are sheep
 
-- Всички цифри от намисленото число са различни.
-- Числото не може да започва с нула.
-- Ако в числото на играча има съвпадения на правилните места, те са бикове.
-- Ако в числото на играча има съвпадения, но разместени, те са крави.
-
-Примерно:
-
-търсено: 2567
-опит: 6578 : 1 бик и 2 крави
+For example: 2567 -> 6578 : 1 ram 2 sheep
