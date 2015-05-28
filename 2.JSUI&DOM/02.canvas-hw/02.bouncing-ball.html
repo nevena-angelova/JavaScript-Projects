@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Bouncing Ball</title>
+    <style>
+        canvas { border: 1px solid #000; }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="900" height="400">This is not supported by your browser
+    </canvas>
+    <script>
+        var canvas = document.getElementById('canvas'),
+            ctx = canvas.getContext('2d'),
+            ballX = canvas.width / 2,
+            ballY = canvas.height / 2,
+            ballRadius = 20,
+            ballUp = false,
+            ballRight = false;
+
+        ctx.fillStyle = 'purple';
+
+        function animationFrame() {
+
+            if (ballUp) {
+                ballY -= 6;
+
+            } else {
+                ballY += 6;
+            }
+
+            if (ballRight) {
+                ballX += 6;
+
+            } else {
+                ballX -= 6;
+            }
+
+            if (ballY >= canvas.height - ballRadius) {
+                ballUp = true;
+            }
+
+            if (ballY <= 0 + ballRadius) {
+                ballUp = false;
+            }
+
+            if (ballX >= canvas.width - ballRadius) {
+                ballRight = false;
+            }
+
+            if (ballX <= 0 + ballRadius) {
+                ballRight = true;
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.arc(ballX, ballY, ballRadius, 0, 2 * Math.PI);
+            ctx.fill();
+            requestAnimationFrame(animationFrame);
+        }
+
+        animationFrame();
+
+    </script>
+</body>
+</html>

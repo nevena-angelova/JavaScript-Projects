@@ -1,0 +1,23 @@
+﻿<!-- Create a function that gets the value of <input type="text"> ands prints its value to the console -->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Change font and background color</title>
+</head>
+<body>
+    <input id="input" type="text" value="Enter text" />
+    <input type="submit" value="Submit" onclick="printValue()" />
+
+    <script>
+
+        function printValue() {
+            var inputValue = document.getElementById('input').value;
+            console.log(inputValue);
+        }
+
+    </script>
+</body>
+</html>

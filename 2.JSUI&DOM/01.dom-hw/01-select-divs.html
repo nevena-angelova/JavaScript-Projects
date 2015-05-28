@@ -1,0 +1,75 @@
+﻿<!--Write a script that selects all the div nodes that are directly inside other div elements
+- Create a function using querySelectorAll()
+- Create a function using getElementsByTagName()
+-->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Select Divs</title>
+</head>
+<body>
+    <div>
+        div 1
+        <nav>
+            <div>div 1.1 - nav</div>
+        </nav>
+        <div>div 1.2</div>
+        <div>div 1.3</div>
+    </div>
+    <div>div 2</div>
+    <div>
+        div 3
+        <div>div 3.1</div>
+        <section>
+            <div>div 3.2 - section</div>
+        </section>
+    </div>
+
+    <script>
+
+        function selectDivsWithCss() {
+            return document.querySelectorAll('div > div');
+        }
+
+        // collect all divs and for every item check wether its parent node name is 'DIV'
+        // as result returns an array of all selected items
+        function selectDivsByTagName() {
+            var allDivs = document.getElementsByTagName('div');
+            var resultElements = [];
+
+            for (var i = 0, len = allDivs.length; i < len; i++) {
+                if (allDivs[i].parentNode.nodeName == 'DIV') {
+                    resultElements.push(allDivs[i]);
+                }
+            }
+
+            return resultElements;
+        }
+
+        // tests
+
+        function addColorToSelected(selectedDivs) {
+            for (var i = 0; i < selectedDivs.length; i++) {
+                selectedDivs[i].style.color = 'red';
+            }
+        }
+
+        // test 1 - Create a function using querySelectorAll()
+
+        //var selectedDivs = selectDivsWithCss();
+
+        // test 2 - Create a function using getElementsByTagName()
+
+        var selectedDivs = selectDivsByTagName();
+
+        // the selected items are colored red
+
+        addColorToSelected(selectedDivs);
+
+    </script>
+
+</body>
+</html>

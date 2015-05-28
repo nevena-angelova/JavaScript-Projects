@@ -1,0 +1,56 @@
+﻿<!--Create a slider control using jQuery-->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Slider</title>
+    <script src="libraries/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+    <div id="container">
+        <div id="sliderWrap">
+            <img src="img/img1.jpg" alt="slide image 1" />
+        </div>
+        <a id="prevBtn" href="#">‹‹ previous</a>
+        <a id="nextBtn" href="#">next ››</a>
+    </div>
+    <script>
+
+        var $img = $('#sliderWrap img'),
+            imageCount = 7,
+            counter = 2; // a global counter, it can be changed and used in all functions
+
+        $('#prevBtn').on('click', prevImage);
+        $('#nextBtn').on('click', nextImage);
+
+        setInterval(nextImage, 5000);
+
+        function setImage(imgNumber) {
+            $img.attr('alt', 'slide image ' + imgNumber)
+                .attr('src', 'img/img' + imgNumber + '.jpg');
+        }
+
+        function prevImage() {
+            if (counter == 1) {
+                counter = imageCount;
+            }
+            else {
+                counter--;
+            }
+            setImage(counter);
+        }
+
+        function nextImage() {
+            if (counter == imageCount) {
+                counter = 1;
+            } else {
+                counter++;
+            }
+            setImage(counter);
+        }
+
+    </script>
+</body>
+</html>

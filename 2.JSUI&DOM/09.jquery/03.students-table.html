@@ -1,0 +1,48 @@
+﻿<!--By given an array of students, generate a table that represents these students-->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Table Of Students</title>
+    <script src="libraries/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+    <script>
+        var students = [
+            { firstName: 'Kalina', lastName: 'Todorova', grade: '3' },
+            { firstName: 'Vasil', lastName: 'Peichev', grade: '1' },
+            { firstName: 'Borislav', lastName: 'Georgiev', grade: '2' },
+            { firstName: 'Milena', lastName: 'Vasileva', grade: '1' }
+        ];
+
+        function generateTable(students) {
+
+            var $table = $('<table><thead><tr><th>First Name</th><th>Last Name</th><th>Grade</th></tr></thead></table>'),
+                $tbody = $('<tbody/>'),
+                $tr,
+                $td;
+
+            for (var i = 0; i < students.length; i++) {
+                $tr = $('<tr/>');
+                $td = $('<td/>').text(students[i].firstName);
+                $tr.append($td);
+                $td = $('<td/>').text(students[i].lastName);
+                $tr.append($td);
+                $td = $('<td/>').text(students[i].grade);
+                $tr.append($td);
+                $tbody.append($tr);
+            }
+
+            $table.append($tbody);
+
+            $('#container').append($table);
+        }
+
+        generateTable(students);
+
+    </script>
+</body>
+</html>

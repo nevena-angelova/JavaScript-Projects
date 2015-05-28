@@ -1,0 +1,45 @@
+﻿<!-- Write a function that replaces non breaking white-spaces in a text with &nbsp; -->
+
+<!-- Ако искаме да заменим само първото срещане, използваме следната конструкция:
+var newString = originalString.replace(/the/, "");
+
+Ако искаме да заменим всички срещания на "the" във входа, добавяме само една буквичка:
+var newString = originalString.replace(/the/g, "");
+
+А ако искаме да сме и case-insensitive и да хванем и първото The, добавяме отново само една буква по следният начин:
+var newString = originalString.replace(/the/gi, ""); -->
+
+
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Replaces Non Breaking White-spaces</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="js-console.js"></script>
+</head>
+<body>
+    <div id="container">
+        <h1>Enter a text:</h1>
+        <div>
+            <textarea id="inputStr">We are living in a yellow submarine. We don't have anything else.</textarea>
+            <input onclick="mainFunction()" type="submit" name="submit" value="Submit" />
+        </div>
+        <script>
+
+            function replaceBlank(text) {
+                //return text.replace(/ /g, '*');
+                return text.replace(/ /g, '&nbsp;');
+            }
+
+            function mainFunction() {
+                var text = jsConsole.jsReadString();
+                jsConsole.jsWriteLine(replaceBlank(text));
+            }
+
+        </script>
+    </div>
+</body>
+</html>

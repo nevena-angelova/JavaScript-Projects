@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Spiral</title>
+    <style>
+        #svg-container { text-align: center; margin-top: 50px; }
+    </style>
+</head>
+<body>
+    <div id="svg-container"></div>
+    <script src="raphael-min.js"></script>
+    <script>
+
+        var paper = Raphael('svg-container', 500, 500);
+
+        var width = paper.width,
+            height = paper.height,
+            x = 0,
+            y = 0,
+            cX = width / 2,
+            cY = height / 2,
+            a = 0,
+            b = 3,
+            angle = 0,
+            i = 0;
+
+        // a - distanse between the center and the begining of the spiral
+        // b - distance between the spiral lines
+        // angle - the angle between two neighbour drawing poins (circles)
+
+        while (x < width - 1 && y < height - 1) {
+            angle = 0.01 * i;
+            i++;
+
+            x = cX + (a + b * angle) * Math.cos(angle);
+            y = cY + (a + b * angle) * Math.sin(angle);
+
+            paper.circle(x, y, 1)
+            .attr({
+                stroke: 'none',
+                fill: '#000'
+            });
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Family Tree</title>
+    <script src="kinetic-v5.1.0.min.js"></script>
+    <style>
+        canvas { border: 1px solid #000!important; }
+    </style>
+</head>
+<body>
+    <div id="kinetic-container"></div>
+    <script>
+        var stage = new Kinetic.Stage({
+            container: 'kinetic-container',
+            width: 800,
+            height: 600
+        });
+
+        var layer = new Kinetic.Layer();
+
+        // draw the field and its connections, depending on the input parameters
+
+        function drawField(x, y, width, height, verticalDistance, horisontalDistance,
+            name, gender, shortConnection, longConnection, isLeft) {
+
+            var cornerRadius;
+
+            if (gender == 'female') {
+                cornerRadius = 20;
+            }
+            else {
+                cornerRadius = 5;
+            }
+
+            var rect = new Kinetic.Rect({
+                x: x,
+                y: y,
+                width: width,
+                height: height,
+                stroke: 'yellowgreen',
+                cornerRadius: cornerRadius
+            });
+
+            var textWidth = new Kinetic.Text({
+                text: name,
+                fontSize: 16,
+                fontFamily: 'Calibri',
+            }).getTextWidth();
+
+            var textHeigh = new Kinetic.Text({
+                text: name,
+                fontSize: 16,
+                fontFamily: 'Calibri',
+            }).getTextHeight();
+
+            var text = new Kinetic.Text({
+                x: x + (width - textWidth) / 2,
+                y: y + (height - textHeigh) / 2,
+                text: name,
+                fontSize: 16,
+                fontFamily: 'Calibri',
+                fill: '#666'
+            });
+
+            layer.add(rect);
+            layer.add(text);
+
+            if (shortConnection) {
+                drawShortConnection(x, y, width, height, verticalDistance);
+            }
+
+            if (longConnection) {
+                drawLongConnection(x, y, width, height, horisontalDistance, verticalDistance, isLeft);
+            }
+        }
+
+        function drawShortConnection(x, y, width, height, verticalDistance) {
+            var startX = x + width / 2,
+                startY = y + height,
+                line = new Kinetic.Line({
+                    points: [
+                        startX, startY,
+                        startX, startY + verticalDistance,
+                    ],
+                    stroke: 'green'
+
+                });
+
+            layer.add(line);
+        }
+
+        function drawLongConnection(x, y, width, height, horisontalDistance, verticalDistance, isLeft) {
+            var startX = x + width / 2,
+                startY = y + height;
+
+            if (isLeft) {
+                line = new Kinetic.Line({
+                    points: [
+                        startX, startY,
+                        startX - width - horisontalDistance, startY + verticalDistance
+                    ],
+                    stroke: 'green'
+
+                });
+            } else {
+                line = new Kinetic.Line({
+                    points: [
+                        startX, startY,
+                        startX + width + horisontalDistance, startY + verticalDistance
+                    ],
+                    stroke: 'green'
+
+                });
+            }
+
+            layer.add(line);
+
+        }
+
+        var initalX = 250,
+        initialY = 50,
+        fieldWidth = 130,
+        fieldHeight = 50,
+        horisontalDistance = 100,
+        verticalDistance = 100;
+
+        drawField(initalX, initialY, fieldWidth, fieldHeight, verticalDistance, horisontalDistance,
+            "Todor Stamatov", 'male', false, true, false);
+
+        drawField(initalX + fieldWidth + horisontalDistance, initialY, fieldWidth, fieldHeight, verticalDistance, horisontalDistance,
+            "Petra Stamatova", 'female', true, false, true);
+
+        drawField(initalX, initialY + fieldHeight + horisontalDistance, fieldWidth, fieldHeight, verticalDistance, horisontalDistance,
+            "Georgi Petrov", 'male', true, false, true);
+
+        drawField(initalX + fieldWidth + horisontalDistance,
+            initialY + fieldHeight + horisontalDistance, fieldWidth, fieldHeight, verticalDistance, horisontalDistance,
+            "Maria Petrova", 'female', true, true, true);
+
+        drawField(initalX, initialY + 2 * (fieldHeight + horisontalDistance), fieldWidth, fieldHeight, verticalDistance, horisontalDistance,
+            "Peter Petrov", 'male', false, false, true);
+
+        drawField(initalX + fieldWidth + horisontalDistance, initialY + 2 * (fieldHeight + horisontalDistance), fieldWidth,
+            fieldHeight, verticalDistance, horisontalDistance, "Teodora Petrova", 'female', false, false);
+
+        stage.add(layer);
+
+    </script>
+</body>
+</html>

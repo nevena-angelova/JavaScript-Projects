@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Circular Div Elements</title>
+    <style>
+        /* uses the content div as "0" point depending on which the div-s are rotated */
+        #content { position: absolute; left: 50%; top: 50%; width: 0; height: 0; border-radius: 50%; background: #000; }
+        #content div { position: absolute; width: 60px; height: 60px; border-radius: 50%; background: red; }
+    </style>
+</head>
+<body>
+    <div id="content">
+    </div>
+    <script>
+
+        var divArray = [],
+            angle = 0,
+            radius = 140,
+            divHalfSide = 30,
+            divFragment = document.createDocumentFragment();
+
+        // creates the divs and set the inital values of the propertes left, bottom and angle
+
+        var div = document.createElement("div");
+
+        for (var i = 0; i < 5; i++) {
+            var divClone = div.cloneNode(true);
+            divClone["angle"] = angle; // adds an "angle" property to the "divClone" object
+
+            divClone.style.left = Math.cos(div.angle / 180 * Math.PI) * radius - divHalfSide + "px";
+            divClone.style.bottom = Math.sin(div.angle / 180 * Math.PI) * radius - divHalfSide + "px";
+            divClone.style.backgroundColor = generateRandColor();
+
+            divArray.push(divClone);
+            divFragment.appendChild(divClone);
+            angle += 72; // each div is positioned at 72deg (360/5) from the previous one
+        }
+
+        document.getElementById("content").appendChild(divFragment);
+
+        function generateRandColor() {
+            var red = Math.floor(Math.random() * 256),
+                green = Math.floor(Math.random() * 256),
+                blue = Math.floor(Math.random() * 256);
+
+            return "rgb(" + red + "," + green + "," + blue + ")";
+        }
+
+        // in every 100 milliseconds the angle of every item of divArray increases with 1 till it becomes 360. Then 0 is asigened to it.
+
+        setInterval(function () {
+
+            for (var i = 0, len = divArray.length; i < len; i++) {
+
+                divArray[i].angle++;
+
+                divArray[i].style.left = Math.cos(divArray[i].angle / 180 * Math.PI) * radius - divHalfSide + "px";
+                divArray[i].style.bottom = Math.sin(divArray[i].angle / 180 * Math.PI) * radius - divHalfSide + "px";
+
+                if (divArray[i].angle == 360) {
+                    divArray[i].angle = 0;
+                }
+            }
+
+        }, 100);
+
+    </script>
+</body>
+</html>

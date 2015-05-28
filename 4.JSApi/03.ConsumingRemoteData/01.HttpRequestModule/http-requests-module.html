@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>HTTP Requests Module</title>
+    <script src="libs/q.min.js"></script>
+    <script src="scripts/http-requests-module.js"></script>
+</head>
+<body>
+    <div id="http-responce"></div>
+    <script>
+        function listStudents(students) {
+            var responceDiv = document.getElementById('http-responce');
+            responceUl = document.createElement('ul'),
+            responceLi = document.createElement('li');
+
+            for (var i = 0, len = students.length; i < len; i++) {
+                responceLi.innerHTML = 'First Name: ' + students[i].firstName + ', Last Name: ' + students[i].lastName;
+                responceUl.appendChild(responceLi.cloneNode(true));
+            }
+
+            responceDiv.appendChild(responceUl);
+        }
+
+        httpRequest.makeRequest({
+            requestType: 'GET',
+            resourceUrl: "data/students.js",
+            contentType: "application/javascript",
+        }).then(function (data) {
+            listStudents(data);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+﻿<!-- Write a function that checks if a given object contains a given property
+
+var obj  = …;
+var hasProp = hasProperty(obj,"length");
+
+ -->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Check If Object Contains Property</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="js-console.js"></script>
+</head>
+<body>
+    <section id="container">
+        <script>
+
+            function hasProperty(obj, prop) {
+                if (obj[prop]) {
+                    return true;
+                }
+                return false;
+            }
+
+            jsConsole.jsWriteLine(hasProperty(document, "getElementById"));
+
+        </script>
+    </section>
+</body>
+</html>

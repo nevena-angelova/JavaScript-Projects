@@ -1,0 +1,74 @@
+﻿<!-- Write functions for working with shapes in  standard Planar coordinate system
+ - Points are represented by coordinates P(X, Y)
+ - Lines are represented by two points, marking their beginning and ending
+     - L(P1(X1,Y1),P2(X2,Y2))
+ - Calculate the distance between two points
+ - Check if three segment lines can form a triangle
+ -->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Functions For Working With Shapes In Standard Planar Coordinate System</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="js-console.js"></script>
+</head>
+<body>
+    <section id="container">
+        <script>
+
+            function createPoint(x, y) {
+                return {
+                    x: x,
+                    y: y
+                }
+            }
+
+            function createLine(p1, p2) {
+                return {
+                    p1: p1,
+                    p2: p2,
+                    calcLength: function calcLength() {
+                        return Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
+                    }
+                }
+            }
+
+            function checkSegments(line1, line2, line3) {
+
+                var line1Length = line1.calcLength;
+                var line2Length = line2.calcLength;
+                var line3Length = line3.calcLength;
+
+                if (line1Length < line2Length + line3Length && line2Length < line1Length + line3Length && line3Length < line1Length + line2Length) {
+
+                    return true;
+
+                }
+
+                return false;
+            }
+
+            var p1 = createPoint(1, 0);
+            var p2 = createPoint(0, 2);
+            var p3 = createPoint(0, 3);
+
+            //p1 = createPoint(0, 0);
+            //p2 = createPoint(0, 0);
+            //p3 = createPoint(0, 0);
+
+            var line1 = createLine(p1, p2);
+            var line2 = createLine(p2, p3);
+            var line3 = createLine(p3, p1);
+
+            jsConsole.jsWriteLine("L(P1(" + p1.x + "," + p1.y + "),P2(" + p2.x + "," + p2.y + "));");
+            jsConsole.jsWriteLine("L(P1(" + p2.x + "," + p2.y + "),P2(" + p3.x + "," + p3.y + "));");
+            jsConsole.jsWriteLine("L(P1(" + p3.x + "," + p3.y + "),P2(" + p1.x + "," + p1.y + "));");
+            jsConsole.jsWriteLine("The lines can form a triangle: " + checkSegments(line1, line2, line3));
+
+        </script>
+    </section>
+</body>
+</html>

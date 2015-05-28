@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Logos</title>
+</head>
+<body>
+    <div id="svg-container"></div>
+
+    <script src="raphael-min.js"></script>
+    <script>
+
+        var paper = Raphael('svg-container', 600, 600);
+
+        // teleric logo
+
+        paper.path('m 46.122382,79.12239 -13.87626,-13.87762 9.888062,-9.88615 c 5.438438,-5.43738 9.888068,-9.9884 9.888068,-10.11339 0,-0.12498 -2.73042,-2.95625 -6.06759,-6.29171 L 39.887073,32.88906 33.81911,38.9539 27.75115,45.01874 23.875575,41.14316 20,37.26759 l 9.943221,-9.94322 9.943221,-9.94323 9.94535,9.94347 c 5.46995,5.46891 10.04564,9.94347 10.16821,9.94347 0.12257,0 4.69826,-4.47456 10.1682,-9.94347 l 9.94536,-9.94347 9.94322,9.94323 9.943218,9.94322 -3.875578,3.87557 -3.87557,3.87558 -6.06798,-6.06486 -6.06797,-6.06485 -6.18024,6.17717 -6.18024,6.17718 10.00046,10.00231 10.00047,10.00232 L 73.876002,79.124 59.998652,93 46.122382,79.12239 z m 20.00292,-19.99825 -6.12226,-6.1253 -6.11902,6.11597 -6.11901,6.11598 0.49936,0.54113 c 0.27465,0.29762 3.01916,3.0645 6.09892,6.14863 l 5.59957,5.6075 6.14235,-6.1393 6.14235,-6.13931 -6.12226,-6.1253 z')
+                .attr({
+                    fill: '#95e536',
+                    stroke: 'none',
+                });
+
+        paper.text(200, 60, 'Telerik')
+             .attr({
+                 'font-size': 62,
+                 'font-weight': 'bold',
+                 'font-family': 'Arial, sans-serif'
+             });
+
+        paper.text(302, 54, '®')
+            .attr({
+                'font-size': 15,
+                'font-weight': 'bold',
+                'font-family': 'Arial, sans-serif'
+            });
+
+        paper.text(238, 100, 'Develop experiences')
+        .attr({
+            'font-size': 26,
+            'font-family': 'Tahoma, Arial, sans-serif'
+        });
+
+        // youtube logo
+
+        paper.text(100, 263, 'You')
+            .attr({
+                fill: '#4b4b4b',
+                'font-size': 90,
+                'font-family': 'arial, sans-serif',
+                'font-weight': 'bold'
+            });
+
+        paper.rect(190, 190, 220, 146, 37)
+            .attr({
+                fill: '#ec2828',
+                stroke: 'none',
+            });
+
+        paper.text(300, 263, 'Tube')
+            .attr({
+                fill: '#fff',
+                'font-size': 90,
+                'font-family': 'arial, sans-serif',
+                'font-weight': 'bold'
+            });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+﻿<!-- Write a JavaScript function reverses string and returns itExample: "Write a JavaScript function reverses string and returns itExample: "sample"  "elpmas".
+" -> "elpmas". -->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Reverse String</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="js-console.js"></script>
+</head>
+<body>
+    <div id="container">
+        <h1>Enter a word:</h1>
+        <div>
+            <input id="inputStr" type="text" name="inputStri" value="sample" />
+            <input onclick="mainFunction()" type="submit" name="submit" value="Submit" />
+        </div>
+        <script>
+
+            function reverseString(inputString) {
+
+                var reversedString = '';
+
+                for (var i = 0, len = inputString.length; i < len; i++) {
+                    reversedString += inputString[len - i - 1];
+                }
+
+                return reversedString;
+
+            }
+
+            function mainFunction() {
+
+                var inputString = jsConsole.jsReadString(); // reads the value from the input
+
+                jsConsole.jsWriteLine(reverseString(inputString));
+
+            }
+
+        </script>
+    </div>
+</body>
+</html>

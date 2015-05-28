@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>To Do List</title>
+</head>
+<body>
+    <input id="newItemInput" type="text" value="" />
+    <input id="addBtn" type="submit" value="Add Item" />
+    <input id="deleteBtn" type="submit" value="Delete Item" />
+    <input id="toggle" type="submit" value="Toggle Item" />
+
+    <ul id="list"></ul>
+
+    <script>
+
+        var list = document.getElementById('list'),
+            addBtn = document.getElementById('addBtn'),
+            deleteBtn = document.getElementById('deleteBtn'),
+            toggleBtn = document.getElementById('toggle');
+
+        addBtn.addEventListener('click', addItem);
+        deleteBtn.addEventListener('click', deleteItem);
+        toggleBtn.addEventListener('click', toggleItem);
+
+        function addItem() {
+            var listItem = document.createElement('li'),
+                checkbox = document.createElement('input'),
+                itemToAdd = document.getElementById('newItemInput').value,
+                textNode = document.createTextNode(itemToAdd);
+
+            checkbox.setAttribute('type', 'checkbox');
+            listItem.appendChild(checkbox);
+            listItem.appendChild(textNode);
+            list.appendChild(listItem);
+        }
+
+        function deleteItem() {
+            var checkboxes = list.getElementsByTagName('input');
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    checkboxes[i].parentNode.parentNode.removeChild(checkboxes[i].parentNode);
+                }
+            }
+        }
+
+        function toggleItem() {
+            var checkboxes = list.getElementsByTagName('input');
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    if (checkboxes[i].parentNode.style.display === 'none') {
+                        checkboxes[i].parentNode.style.display = 'block';
+                    } else {
+                        checkboxes[i].parentNode.style.display = 'none';
+                    }
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>

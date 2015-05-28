@@ -1,0 +1,23 @@
+﻿<!--Implement functionality to change the background color of a web page-->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Background Color Change</title>
+    <script src="libraries/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+    <input id="colorInput" type="color" />
+    <script>
+
+        $('#colorInput').on('change', changeBackgroundColor);
+
+        function changeBackgroundColor() {
+            $('body').css('background-color', this.value);
+        }
+
+    </script>
+</body>
+</html>

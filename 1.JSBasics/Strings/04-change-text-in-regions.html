@@ -1,0 +1,99 @@
+﻿<!-- You are given a text. Write a function that changes the text in all regions:
+
+<upcase>text</upcase> to uppercase.
+<lowcase>text</lowcase> to lowercase
+<mixcase>text</mixcase> to mix casing(random)
+
+We are <mixcase>living</mixcase> in a <upcase>yellow submarine</upcase>. We <mixcase>don't</mixcase> have <lowcase>anything</lowcase> else.
+
+The expected result:
+
+We are LiVinG in a YELLOW SUBMARINE. We dOn'T have anything else.
+
+Regions can be nested
+
+ -->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Change Text In Regions</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="js-console.js"></script>
+</head>
+<body>
+    <div id="container">
+        <script>
+
+            var text = "<upcase>We are <mixcase>living</mixcase> in a yellow submarine</upcase>. We <mixcase>don't</mixcase> have <lowcase>anything</lowcase> else.";
+
+            function changeText() {
+
+                var stack = Array();
+                var result = Array();
+
+                var start;
+                var end;
+                var tag;
+
+                // "stack" array is used as stack. Each new opening tag is pushed and when closing appears, the last opening tag is
+                // removed from the stack. The text pieces - str (separated by "i" and the opening tags) are pushed to the result array in letter case depending on
+                // the stack's last item. This happens before the stack is changed so its previous state is used.
+
+                for (var i = 0; i < text.length; i++) {
+
+                    start = text.indexOf("<", i);
+
+                    if (start != -1) {
+
+                        end = text.indexOf(">", start);
+                        tag = text.substring(start + 1, end);
+                        str = text.substring(i, start);
+
+                        if (stack[stack.length - 1] == "upcase") {
+                            result.push(str.toUpperCase());
+                        }
+                        else if (stack[stack.length - 1] == "lowcase") {
+                            result.push(str.toLowerCase());
+                        }
+                        else if (stack[stack.length - 1] == "mixcase") {
+
+                            for (var i = 0; i < str.length; i++) {
+                                if (Math.floor(Math.random() * 2) == 0) {
+                                    result.push(str[i].toUpperCase());
+                                }
+                                else {
+                                    result.push(str[i].toLowerCase());
+                                }
+                            }
+                        }
+                        else {
+                            result.push(str);
+                        }
+
+                        if (tag[0] != "/") {
+                            stack.push(tag);
+                        }
+                        else {
+                            stack.pop(); // if closing tag, removes the last item from the stack
+                        }
+
+                        i = end;
+
+                    } else { // in the result array is pushed the text that is left after the final closing tag.
+                        result.push(text.substr(i));
+                        break;
+                    }
+                }
+
+                return result.join('');
+            }
+
+            jsConsole.jsWriteLine(changeText());
+
+        </script>
+    </div>
+</body>
+</html>

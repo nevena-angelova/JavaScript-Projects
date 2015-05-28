@@ -1,0 +1,26 @@
+﻿<!--Using jQuery implement functionality to insert a DOM element before or after another element-->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Insert before and after element</title>
+    <script src="libraries/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+    <div id="container">
+        <ul>
+            <li>first element</li>
+            <li>second element</li>
+            <li>third element</li>
+        </ul>
+    </div>
+    <script>
+        var $firstItem = $('#container ul li').first();
+
+        $('<li>ELEMENT INSERTED BEFORE THE FIRST ITEM</li>').insertBefore($firstItem);
+        $('<li>ELEMENT INSERTED AFTER THE FIRST ITEM</li>').insertAfter($firstItem);
+    </script>
+</body>
+</html>

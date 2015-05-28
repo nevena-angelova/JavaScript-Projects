@@ -1,0 +1,194 @@
+﻿<!-- Create a module for working with DOM. The module should have the following functionality
+- Add DOM element to parent element given by selector
+- Remove element from the DOM  by given selector
+- Attach event to given selector by given event type and event hander
+- Add elements to buffer, which appends them to the DOM when their count for some selector becomes 100
+    * The buffer contains elements for each selector it gets
+- Get elements by CSS selector
+- The module should reveal only the methods
+ -->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>DOM Module</title>
+</head>
+<body>
+    <div id="wrapper">
+
+        <script>
+            var domModule = (function () {
+
+                var buffer = {};
+
+                function appendChild(selector, element) {
+                    document.querySelector(selector).appendChild(element);
+                }
+
+                function removeChild(selector, element) {
+                    var parent = document.querySelector(selector),
+                        child = document.querySelector(element);
+                    parent.removeChild(child);
+                }
+
+                function addHandler(selector, eventType, eventHandler) {
+                    var selectedElements = document.querySelectorAll(selector);
+                    for (var i = 0; i < selectedElements.length; i++) {
+                        selectedElements[i].addEventListener(eventType, eventHandler);
+                    }
+                }
+
+                // appends elements to the buffer for the different selectors
+                // if the elements of some selector become 100, they are appended to the page and removed from the buffer
+                function appendToBuffer(selector, element) {
+                    var parent = document.querySelector(selector);
+
+                    if (buffer[parent]) {
+                        buffer[parent].push(element);
+                    } else {
+                        buffer[parent] = [];
+                        buffer[parent].push(element);
+                    }
+
+                    if (buffer[parent].length === 100) {
+                        var fragment = document.createDocumentFragment();
+                        for (var i = 0; i < buffer[parent].length; i++) {
+                            fragment.appendChild(buffer[parent][i]);
+                        }
+                        parent.appendChild(fragment);
+                        buffer[parent] = [];
+                    }
+                }
+
+                return {
+                    appendChild: appendChild,
+                    removeChild: removeChild,
+                    addHandler: addHandler,
+                    appendToBuffer: appendToBuffer
+                };
+
+            })();
+
+            // TEST
+
+            var h3 = document.createElement('h3');
+
+            //1. appends div to #wrapper
+
+            var firstH3 = h3.cloneNode(true);
+            firstH3.innerHTML = '1. appends div to #wrapper';
+            domModule.appendChild('#wrapper', firstH3);
+
+            var p = document.createElement('p'),
+                textNode = document.createTextNode('some text');
+
+            p.appendChild(textNode);
+            domModule.appendChild('#wrapper', p);
+
+            //2. removes li:first-child from ul
+
+            var secondH3 = h3.cloneNode(true);
+            secondH3.innerHTML = '2. removes li:first-child from ul';
+            domModule.appendChild('#wrapper', secondH3);
+
+            var nav = document.createElement('nav'),
+                ul = document.createElement('ul'),
+                listFragment = document.createDocumentFragment(),
+                li = document.createElement('li'),
+                liCopy,
+                textNode;
+
+            for (var i = 1; i <= 10; i++) {
+                liCopy = li.cloneNode(true);
+                liCopy.innerHTML = 'list item ' + i;
+                listFragment.appendChild(liCopy);
+            }
+
+            ul.appendChild(listFragment);
+            nav.appendChild(ul);
+            domModule.appendChild('#wrapper', ul);
+            domModule.removeChild("ul", "li:first-child");
+
+            //3. add handler to each a element with class button
+
+            var thirdH3 = h3.cloneNode(true);
+            thirdH3.innerHTML = '3. add handler to each a element with class button';
+            domModule.appendChild('#wrapper', thirdH3);
+
+            var a = document.createElement('a'),
+                aCopy,
+                br = document.createElement('br'),
+                brCopy,
+                aFragment = document.createDocumentFragment();
+
+            a.href = '#';
+            a.className = 'button';
+
+            for (var i = 0; i < 10; i++) {
+                aCopy = a.cloneNode(true);
+                aCopy.innerHTML = 'button' + i;
+                brCopy = br.cloneNode(true);
+                aFragment.appendChild(aCopy);
+                aFragment.appendChild(brCopy);
+            }
+
+            domModule.appendChild('#wrapper', aFragment);
+            domModule.addHandler("a.button", 'click', function () { alert("Clicked") });
+
+            //4. append to buffer
+
+            var fourthH3 = h3.cloneNode(true);
+            fourthH3.innerHTML = '4. append to buffer';
+            domModule.appendChild('#wrapper', fourthH3);
+
+            var nav = document.createElement('nav'),
+                ul = document.createElement('ul'),
+                navItem = document.createElement('li'),
+                counter = 50;
+
+            nav.id = 'main-nav';
+            ul.appendChild(listFragment);
+            nav.appendChild(ul);
+            domModule.appendChild('#wrapper', nav);
+
+            // add 50 list items with #main-nav selector to the buffer (part 1)
+            for (var i = 1; i <= counter; i++) {
+                navItem.innerHTML = 'nav list item' + i;
+                domModule.appendToBuffer("#main-nav ul", navItem.cloneNode(true));
+            }
+
+            // generates span or strong element
+            function generateRandomElement(index) {
+                var element,
+                    randNumber = Math.floor((Math.random() * 2) + 1);
+                if (randNumber === 1) {
+                    var span = document.createElement('span'),
+                        textNode = document.createTextNode('span item ' + index + ', ');
+                    span.appendChild(textNode);
+                    return span;
+                } else {
+                    var strong = document.createElement('strong'),
+                        textNode = document.createTextNode('strong item ' + index + ', ');
+                    strong.appendChild(textNode);
+                    return strong;
+                }
+            }
+
+            // then adds 240 random span or strong elements with "#wrapper" selector
+            for (var i = 1; i <= 240; i++) {
+                var element = generateRandomElement(i);
+                domModule.appendToBuffer("#wrapper", element);
+            }
+
+            // appends another 150 list items with #main-nav selector to the buffer (part 2)
+            for (var i = counter+1; i <= counter + 100; i++) {
+                navItem.innerHTML = 'nav list item' + i;
+                domModule.appendToBuffer("#main-nav ul", navItem.cloneNode(true));
+            }
+
+        </script>
+    </div>
+</body>
+</html>

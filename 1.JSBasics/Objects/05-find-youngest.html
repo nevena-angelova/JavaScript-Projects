@@ -1,0 +1,75 @@
+﻿<!-- Write a function that finds the youngest person in a given array of persons and prints his/hers full name
+Each person have properties firstname, lastname and age, as shown:
+    var persons = [
+  {firstname : "Gosho", lastname: "Petrov", age: 32},
+  {firstname : "Bay", lastname: "Ivan", age: 81},…];
+-->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Find The Youngest Person</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="js-console.js"></script>
+</head>
+<body>
+    <section id="container">
+        <h1>Enter "first name", "last name" and "age" of a person separated by space:</h1>
+        <div>
+            <input id="inputNum" type="text" name="inputNum" value="Martin Kostov 56" />
+            <input onclick="addPerson()" type="submit" value="Add Person" />
+            <input onclick="findYoungest()" type="submit" value="Find Youngest" />
+        </div>
+        <script>
+
+            var persons = [];
+
+            function createPerson(fName, lName, age) {
+                return {
+                    fName: fName,
+                    lName: lName,
+                    age: age
+                }
+            }
+
+            function addPerson() {
+
+                var inputArray = jsConsole.jsReadSplitString();
+                var fName = inputArray[0];
+                var lName = inputArray[1];
+                var age = parseInt(inputArray[2]);
+
+                var person = createPerson(fName, lName, age);
+                persons.push(person);
+                jsConsole.jsWriteLine("-> " + person.fName + " " + person.lName + " " + person.age);
+
+            }
+
+            function findYoungest() {
+
+                var ygst = persons[0].age;
+                var ygstFullName;
+                var index = 0;
+
+                for (var i = 0; i < persons.length; i++) {
+
+                    if (persons[i].age < ygst) {
+                        ygst = persons[i].age;
+                        index = i;
+
+                    }
+
+                    ygstFullName = persons[index].fName + " " + persons[index].lName;
+
+                }
+
+                jsConsole.jsWriteLine("The youngest is: " + ygstFullName);
+            }
+
+
+        </script>
+    </section>
+</body>
+</html>

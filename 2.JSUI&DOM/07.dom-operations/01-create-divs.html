@@ -1,0 +1,99 @@
+﻿<!-- Write a script that creates a number of div elements.
+Each div element must have the following:
+- Random width and height between 20px and 100px
+- Random background color
+- Random font color
+- Random position on the screen (position:absolute)
+- A strong element with text "div" inside the div
+- Random border radius
+- Random border color
+- Random border width between 1px and 20px
+-->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Create Number Of div Elements</title>
+</head>
+<body>
+    <input id="inputCount" type="text" value="30" />
+    <input onclick="generateDivs()" type="submit" value="GENERATE" />
+    <div id="content">
+    </div>
+    <script>
+
+        var maxWidth = screen.width,
+        maxHeight = screen.height - 200,
+        content = document.getElementById("content"),
+        divFragment = document.createDocumentFragment();
+
+        function generateRandNumber(maxValue) {
+            return Math.floor(Math.random() * maxValue);
+        }
+
+        function generateRandColor() {
+            var red = generateRandNumber(256);
+            var green = generateRandNumber(256);
+            var blue = generateRandNumber(256);
+
+            return "rgb(" + red + "," + green + "," + blue + ")";
+        }
+
+        function addStyles(div) {
+            var width = generateRandNumber(80) + 20;
+            div.style.width = width + "px";
+            var height = generateRandNumber(80) + 20;
+            div.style.height = height + "px";
+            var borderWidth = generateRandNumber(20);
+            div.style.borderWidth = borderWidth + "px";
+            div.style.position = "absolute";
+            div.style.left = generateRandNumber(maxWidth - width - 2 * borderWidth) + "px";
+            div.style.top = generateRandNumber(maxHeight - height - 2 * borderWidth) + "px";
+            div.style.borderRadius = generateRandNumber(height / 2) + "px";
+            div.style.borderColor = generateRandColor();
+            div.style.color = generateRandColor();
+            div.style.backgroundColor = generateRandColor();
+
+            var borderStyle = generateRandNumber(generateRandNumber(4));
+
+            if (borderStyle == 0) {
+                div.style.borderStyle = "dashed";
+            }
+            else if (borderStyle == 1) {
+                div.style.borderStyle = "dotted";
+            }
+            else {
+                div.style.borderStyle = "solid";
+            }
+
+        }
+
+        function generateDivs() {
+            var count = document.getElementById("inputCount").value;
+
+            // clears the previous divs
+            while (content.firstChild) {
+                content.removeChild(content.firstChild);
+            }
+
+            var div = document.createElement("div");
+            var strong = document.createElement("strong");
+            var strongText = document.createTextNode("div");
+            strong.appendChild(strongText);
+            div.appendChild(strong);
+
+            for (var i = 0; i < count; i++) {
+                var cloneDiv = div.cloneNode(true);
+                addStyles(cloneDiv);
+                divFragment.appendChild(cloneDiv);
+            }
+
+            content.appendChild(divFragment);
+
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+﻿<!-- Create a module that works with moving div elements. Implement functionality for:
+- Add new moving div element to the DOM
+    * The module should generate random background, font and border colors for the div element
+    * All the div elements are with the same width and height
+- The movements of the div elements can be either circular(ellipse) or rectangular
+- The elements should be moving all the time
+ -->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>DOM Module</title>
+    <style>
+        /* uses the #content div as "0" point depending on which the div-s are rotated by their absolute left and bottom css properties */
+        #content { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
+        #content div { position: absolute; width: 60px; line-height: 60px; border-width: 2px; border-style: solid; text-align: center; border-radius: 50%; background: red; font-family: Arial,sans-serif; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <input id="movement" type="text" value="rect" />
+    <input onclick="generateDivs()" type="submit" value="GENERATE" />
+    <div id="content">
+
+        <script>
+
+            // width = 64px - element width + border width
+
+            var movingShapes = (function () {
+
+                function generateRandNumber(maxValue) {
+                    return Math.floor(Math.random() * maxValue);
+                }
+
+                function generateRandColor() {
+                    var red = generateRandNumber(256),
+                        green = generateRandNumber(256),
+                        blue = generateRandNumber(256);
+                    return 'rgb(' + red + ',' + green + ',' + blue + ')';
+                }
+
+                var divs = [],
+                    trajectoryRadius = 240,
+                    divHalfSide = 32,
+                    div = document.createElement('div'),
+                    divCopy,
+                    textNode = document.createTextNode('DIV');
+
+                div.appendChild(textNode);
+
+                // the function clones a div and pushes it to an array each time it is called. Then appends
+                // the element at the page, (but keeps the reference to its address in the array, I guess :))
+
+                function add(movement) {
+                    divCopy = div.cloneNode(true),
+                    divCopy.style.background = generateRandColor();
+                    divCopy.style.borderColor = generateRandColor();
+                    divCopy.style.color = generateRandColor();
+                    divCopy['movement'] = movement;
+
+                    if (movement == 'ellipse') {
+                        divCopy['angle'] = 0;
+                    }
+                    else {
+                        divCopy['left'] = trajectoryRadius;
+                        divCopy['bottom'] = 0;
+                    }
+
+                    divs.push(divCopy);
+                    document.getElementById('content').appendChild(divCopy);
+                }
+
+                // Every 10 miliseconds loops trough all divs in the array
+                // for ellipse - every time the angle of each element increases with 1 till it becomes 360. Then 0 is asigened to it.
+                // for rectangle - the coords are formed with the div.left and div.right properties
+                setInterval(function () {
+                    for (var i = 0, len = divs.length; i < len; i++) {
+
+                        if (divs[i].movement === 'ellipse') {
+                            divs[i].angle++;
+
+                            divs[i].style.left = (Math.cos(divs[i].angle / 180 * Math.PI) * trajectoryRadius * 2 - divHalfSide) + 'px';
+                            divs[i].style.bottom = Math.sin(divs[i].angle / 180 * Math.PI) * trajectoryRadius - divHalfSide + 'px';
+
+                            if (divs[i].angle == 360) {
+                                divs[i].angle = 0;
+                            }
+
+                        } else {
+                            if (divs[i].bottom >= trajectoryRadius - divHalfSide) {
+                                divs[i].left -= 2;
+                            }
+                            if (divs[i].left <= -(trajectoryRadius + divHalfSide)) {
+                                divs[i].bottom -= 2;
+                            }
+                            if (divs[i].bottom <= -(trajectoryRadius + divHalfSide)) {
+                                divs[i].left += 2;
+                            }
+                            if (divs[i].left >= trajectoryRadius - divHalfSide) {
+                                divs[i].bottom += 2;
+                            }
+
+                            divs[i].style.left = divs[i].left - 1 + 'px';
+                            divs[i].style.bottom = divs[i].bottom - 1 + 'px';
+                        }
+                    }
+
+                }, 10);
+
+                return {
+                    add: add
+                }
+            })();
+
+            function generateDivs() {
+                var movement = document.getElementById('movement').value;
+                movingShapes.add(movement);
+            }
+
+        </script>
+    </div>
+</body>
+</html>

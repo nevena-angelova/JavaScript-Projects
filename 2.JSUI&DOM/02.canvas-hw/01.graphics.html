@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Graphics</title>
+    <style>
+        canvas { border: 1px solid #000; }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="1000" height="600">
+        This is not supported by your browser
+    </canvas>
+    <script>
+
+        function drawEllipse(x, y, r, scaleX, scaleY, fromAngle, toAngle) {
+            ctx.beginPath();
+            ctx.save();
+            ctx.scale(scaleX, scaleY);
+            ctx.arc(x / scaleX, y / scaleY, r, fromAngle, toAngle);
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawCircle(x, y, r) {
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        var canvas = document.getElementById('canvas'),
+            ctx = canvas.getContext('2d');
+
+        ctx.lineWidth = 3;
+
+
+        // *** the head ***
+        ctx.fillStyle = '#95cdd9';
+        ctx.strokeStyle = '#275a65';
+
+        drawEllipse(200, 240, 70, 1, 0.9, 0, 2 * Math.PI);
+
+        //nose
+        ctx.moveTo(183, 226);
+        ctx.lineTo(168, 260);
+        ctx.lineTo(183, 260);
+        ctx.stroke();
+
+        // mouth
+        ctx.save();
+        ctx.rotate(10 * Math.PI / 180);
+        drawEllipse(225, 242, 24, 1, 0.3, 0, 2 * Math.PI);
+        ctx.restore();
+
+        // eyes
+
+        drawEllipse(156, 226, 12, 1, 0.7, 0, 2 * Math.PI);
+        drawEllipse(210, 226, 12, 1, 0.7, 0, 2 * Math.PI);
+
+        ctx.fillStyle = '#275a65';
+
+        drawEllipse(152, 226, 6, 0.6, 1, 0, 2 * Math.PI);
+        drawEllipse(206, 226, 6, 0.6, 1, 0, 2 * Math.PI);
+
+        ctx.fill();
+
+        // *** the hat ***
+        ctx.fillStyle = '#3f6c98';
+        ctx.strokeStyle = '#000';
+
+        drawEllipse(200, 187.6, 79, 1, 0.28, 0, 2 * Math.PI)
+
+        drawEllipse(200, 180, 44, 1, 0.4, 0, Math.PI);
+
+        ctx.moveTo(156, 180);
+        ctx.lineTo(156, 100);
+        ctx.lineTo(244, 100);
+        ctx.lineTo(244, 180);
+
+        ctx.fill();
+        ctx.stroke();
+
+        drawEllipse(200, 100, 44, 1, 0.4, 0, 2 * Math.PI);
+
+        // *** the bike ***
+
+        ctx.fillStyle = '#95cdd9';
+        ctx.strokeStyle = '#275a65';
+
+        drawCircle(132, 490, 59);
+
+        drawCircle(400, 490, 59);
+
+        ctx.moveTo(159, 370);
+        ctx.lineTo(207, 370);
+        ctx.moveTo(183, 370);
+        ctx.lineTo(237, 490);
+        ctx.lineTo(132, 490);
+        ctx.lineTo(197, 400);
+        ctx.lineTo(362, 400);
+        ctx.lineTo(237, 490);
+        ctx.moveTo(400, 490);
+        ctx.lineTo(346, 350);
+        ctx.lineTo(385, 300);
+        ctx.moveTo(346, 350);
+        ctx.lineTo(285, 375);
+
+        ctx.moveTo(207, 460);
+        ctx.lineTo(226, 479);
+        ctx.moveTo(247, 500);
+        ctx.lineTo(267, 520);
+        ctx.stroke();
+
+        ctx.fillStyle = 'transparent';
+        drawCircle(237, 490, 15);
+
+        // *** the house
+
+        // roof
+
+        ctx.fillStyle = '#9c6161';
+        ctx.strokeStyle = "#000";
+
+        ctx.beginPath();
+        ctx.moveTo(550, 215);
+        ctx.lineTo(695, 55);
+        ctx.lineTo(840, 215);
+
+        ctx.fillRect(550, 215, 290, 220);
+        ctx.strokeRect(550, 215, 290, 220);
+
+        ctx.fill();
+        ctx.stroke();
+
+        // chimney
+
+        ctx.beginPath();
+        ctx.moveTo(757, 175);
+        ctx.lineTo(757, 98);
+        ctx.lineTo(787, 98);
+        ctx.lineTo(787, 175);
+        ctx.stroke();
+        ctx.fill();
+        drawEllipse(772, 98, 15, 1, 0.3, 0, 2 * Math.PI);
+
+        // windows
+
+        function drawWindow(x, y) {
+            ctx.moveTo(x, y);
+            ctx.fillRect(x, y, 100, 70);
+            ctx.moveTo(x + 50, y);
+            ctx.lineTo(x + 50, y + 70);
+            ctx.moveTo(x, y + 35);
+            ctx.lineTo(x + 100, y + 35);
+            ctx.fill();
+            ctx.stroke();
+
+        }
+
+        ctx.beginPath();
+
+        ctx.fillStyle = '#000';
+        ctx.strokeStyle = '#9c6161';
+
+        drawWindow(570, 240);
+        drawWindow(720, 240);
+        drawWindow(720, 335);
+
+        // door
+
+        ctx.beginPath();
+        ctx.strokeStyle = '#000';
+
+        ctx.moveTo(580, 360);
+        ctx.bezierCurveTo(590, 330, 650, 330, 660, 360);
+        ctx.lineTo(660, 435);
+        ctx.moveTo(620, 435);
+        ctx.lineTo(620, 336);
+        ctx.moveTo(580, 435);
+        ctx.lineTo(580, 360);
+        ctx.stroke();
+
+        ctx.fillStyle = 'transparent';
+        drawCircle(605, 405, 4);
+        drawCircle(635, 405, 4);
+
+    </script>
+</body>
+</html>

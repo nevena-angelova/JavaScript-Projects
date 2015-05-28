@@ -1,0 +1,108 @@
+﻿<!-- Create a module for drawing shapes using Canvas. Implement the following shapes:
+- Rect, by given position (X, Y) and size (Width, Height)
+- Circle, by given center position (X, Y) and radius (R)
+- Line, by given from (X1, Y1) and to (X2, Y2) positions
+ -->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>draw Shapes Module</title>
+</head>
+<body>
+    <canvas id="canvas" width="1000" height="600">This is not supported by your browser
+    </canvas>
+    <script>
+
+        var Shape = (function () {
+
+            var canvas = document.getElementById('canvas'),
+                ctx = canvas.getContext('2d');
+
+            ctx.lineWidth = 3;
+
+            var Rect = (function () {
+                // it is called for every instance of the object
+                function rect(x, y, width, height) {
+                    this.x = x;
+                    this.y = y;
+                    this.width = width;
+                    this.height = height;
+                }
+
+                // The function is set just ones. It is common for every instance of the object
+                rect.prototype.draw = function (background) {
+                    ctx.fillStyle = background || '#000'
+                    ctx.fillRect(this.x, this.y, this.width, this.height);
+                }
+
+                return rect;
+            }());
+
+            var Circle = (function () {
+                function circle(x, y, radius) {
+                    this.x = x;
+                    this.y = y;
+                    this.radius = radius;
+                }
+
+                circle.prototype.draw = function (background) {
+                    ctx.fillStyle = background || '#000'
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+
+                return circle;
+            }());
+
+            var Line = (function () {
+                function line(x1, y1, x2, y2) {
+                    this.x1 = x1;
+                    this.y1 = y1;
+                    this.x2 = x2;
+                    this.y2 = y2;
+                }
+
+                line.prototype.draw = function (stroke) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = stroke || '#000';
+                    ctx.moveTo(this.x1, this.y1);
+                    ctx.lineTo(this.x2, this.y2);
+                    ctx.stroke();
+                }
+
+                return line;
+            }());
+
+            return {
+                Rect: Rect,
+                Circle: Circle,
+                Line: Line
+            }
+
+        }());
+
+        var rect1 = new Shape.Rect(20, 20, 120, 80);
+        rect1.draw('red');
+
+        var rect2 = new Shape.Rect(420, 220, 220, 180);
+        rect2.draw('pink');
+
+        var circle1 = new Shape.Circle(150, 200, 80);
+        circle1.draw('green');
+
+        var circle2 = new Shape.Circle(350, 100, 40);
+        circle2.draw('yellow');
+
+        var line1 = new Shape.Line(80, 310, 90, 500);
+        line1.draw('blue');
+
+        var line1 = new Shape.Line(280, 310, 620, 280);
+        line1.draw('purple');
+
+    </script>
+</body>
+</html>

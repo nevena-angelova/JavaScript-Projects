@@ -1,0 +1,68 @@
+﻿<!-- *Create a TreeView component  Initially only the top items must be visible  On item click 
+ If its children are hidden (collapsed), they must be made visible (expanded) 
+ If its children are visible (expanded), they must be made hidden (collapsed) 
+ Research about events -->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Tree View</title>
+</head>
+<body>
+    <div id="container">
+        <ul>
+            <li>
+                item
+                <ul>
+                    <li>sub item</li>
+                    <li>
+                        sub item
+                        <ul>
+                            <li>sub item</li>
+                            <li>sub item</li>
+                            <li>sub item</li>
+                        </ul>
+                    </li>
+                    <li>sub item</li>
+                    <li>sub item</li>
+                </ul>
+            </li>
+            <li>
+                item
+                <ul>
+                    <li>sub item</li>
+                    <li>sub item</li>
+                    <li>sub item</li>
+                    <li>sub item</li>
+                </ul>
+            </li>
+        </ul>
+
+        <script>
+
+            var list = document.getElementsByTagName('ul')[0];
+            list.addEventListener('click', showHideElement);
+
+            function showHideElement(event) {
+                var ul = event.target.getElementsByTagName('ul')[0];
+
+                if (!ul) {
+                    return;
+                } else {
+                    // prevent the function from being executed on the parent element
+                    event.stopPropagation();
+
+                    if (ul.style.display === 'none') {
+                        ul.style.display = 'block';
+                    } else {
+                        ul.style.display = 'none';
+                    }
+                }
+            }
+
+        </script>
+    </div>
+</body>
+</html>

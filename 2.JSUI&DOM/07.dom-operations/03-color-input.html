@@ -1,0 +1,36 @@
+﻿<!-- Create a text area and two inputs with type="color"
+- Make the font color of the text area as the value of the first color input
+- Make the background color of the text area as the value of the second input
+-->
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Change font and background color</title>
+</head>
+<body>
+    <textarea>Here is some text for testing font and background color changing...</textarea>
+    <br />
+    <label>Enter font color:</label>
+    <input id="fontColor" type="color" onchange="onChangeFont()" value="#000" />
+    <br />
+    <label>Enter background color:</label>
+    <input id="bgColor" type="color" onchange="onChangeBackground()" value="#fff" />
+
+    <script>
+
+        function onChangeFont() {
+            var textArea = document.getElementsByTagName("textarea")[0];
+            textArea.style.color = document.getElementById("fontColor").value;
+        }
+
+        function onChangeBackground() {
+            var textArea = document.getElementsByTagName("textarea")[0];
+            textArea.style.backgroundColor = document.getElementById("bgColor").value;
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+D:\Telerik\JSApi\homework\ManageStudents\ManageStudents\bin\ManageStudents.dll
+D:\Telerik\JSApi\homework\ManageStudents\ManageStudents\bin\ManageStudents.pdb
+D:\Telerik\JSApi\homework\ManageStudents\ManageStudents\obj\Debug\ManageStudents.csprojResolveAssemblyReference.cache
+D:\Telerik\JSApi\homework\ManageStudents\ManageStudents\obj\Debug\ManageStudents.dll
+D:\Telerik\JSApi\homework\ManageStudents\ManageStudents\obj\Debug\ManageStudents.pdb
+D:\Telerik\JSApi\homework\03.ConsumingRemoteData\ManageStudents\ManageStudents\bin\ManageStudents.dll
+D:\Telerik\JSApi\homework\03.ConsumingRemoteData\ManageStudents\ManageStudents\bin\ManageStudents.pdb
+D:\Telerik\JSApi\homework\03.ConsumingRemoteData\ManageStudents\ManageStudents\obj\Debug\ManageStudents.csprojResolveAssemblyReference.cache
+D:\Telerik\JSApi\homework\03.ConsumingRemoteData\ManageStudents\ManageStudents\obj\Debug\ManageStudents.dll
+D:\Telerik\JSApi\homework\03.ConsumingRemoteData\ManageStudents\ManageStudents\obj\Debug\ManageStudents.pdb
+D:\Telerik\JSApi\homework\03.ConsumingRemoteData\ManageStudents\ManageStudents\bin\ManageStudents.dll.config

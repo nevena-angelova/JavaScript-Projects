@@ -1,0 +1,64 @@
+﻿<!-- Write a function that creates a HTML UL using a template for every HTML LI. The source of the list should an array of elements.
+Replace all placeholders marked with –{…}–   with the value of the corresponding property of the object. Example:
+
+<div data-type="template" id="list-item">
+ <strong>-{name}-</strong> <span>-{age}-</span>
+</div>
+
+var people = [{name: "Peter", age: 14},…];
+var tmpl = document.getElementById("list-item").innerHtml;
+var peopleList = generateList(people,template);
+//peopleList = "<ul><li><strong>Peter</strong> <span>14</span></li><li>…</li>…</ul>"
+
+-->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Html Placeholders RegEx</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="js-console.js"></script>
+
+</head>
+<body>
+    <div id="container">
+        <div data-type="template" id="list-item">
+            <strong>-{name}-</strong> <span>-{age}-</span> <em>-{city}-</em>
+        </div>
+    </div>
+
+    <script>
+
+        function generateList(people, tmpl) {
+            var output = [];
+            output.push('<ul>');
+            var tmplTemp;
+
+            for (var i = 0; i < people.length; i++) {
+
+                tmplTemp = tmpl;
+
+                for (var prop in people[i]) {
+
+                    tmplTemp = tmplTemp.replace(new RegExp('\\-{' + prop + '\\}-', "g"), people[i][prop]);
+                }
+
+                output.push('<li>' + tmplTemp + '</li>');
+            }
+
+            output.push('</ul>');
+            return output.join('');
+        }
+
+        var people = [{ name: "Peter", age: 14, city: "Sofia" }, { name: "Svetlio", age: 15, city: "Plovdiv" }, { name: "Kalina", age: 15, city: "Varna" }];
+        var tmpl = document.getElementById("list-item").innerHTML.trim();
+
+        var peopleList = generateList(people, tmpl);
+
+        jsConsole.jsWriteLine(peopleList);
+
+    </script>
+</body>
+</html>

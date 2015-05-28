@@ -1,0 +1,45 @@
+﻿<!-- Write a program that extracts from a given text all palindromes, e.g. "ABBA", "lamal", "exe". -->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Extract Palindromes</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="js-console.js"></script>
+</head>
+<body>
+    <div id="container">
+        <script>
+
+            var text = "ABBA, music, lamal, exe, file, tiger, neven, exercises";
+            var palindromes = [];
+            var textArray = text.split(", ");
+            var itemLength;
+
+            for (var i = 0; i < textArray.length; i++) {
+
+                j = 0;
+                itemLength = textArray[i].length;
+
+                // loops until the utmost items are equal, and the next ones and so on till the middle of the word is reached
+                // then pushes the word to the result array.
+                while (textArray[i][j] == textArray[i][itemLength - 1 - j]) {
+
+                    if (Math.floor((itemLength - 1) / 2) == j) {
+                        palindromes.push(textArray[i]);
+                        break;
+                    }
+
+                    j++;
+                }
+            }
+
+            jsConsole.jsWriteLine(text);
+            jsConsole.jsWriteLine(palindromes.join(", "));
+
+        </script>
+    </div>
+</body>
+</html>

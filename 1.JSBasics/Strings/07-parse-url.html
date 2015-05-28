@@ -1,0 +1,55 @@
+﻿<!-- Write a script that parses an URL address given in the format:
+[protocol]://[server]/[resource]
+and extracts from it the [protocol], [server] and [resource] elements. Return the elements in a JSON object.
+For example from the URL http://www.devbg.org/forum/index.php the following information should be extracted:
+{protocol: "http",
+server: "www.devbg.org",
+resource: "/forum/index.php"}
+ -->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Parse an URL</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="js-console.js"></script>
+</head>
+<body>
+    <div id="container">
+        <h1>Enter an URL:</h1>
+        <div>
+            <input id="inputStr" type="text" name="inputString" value="http://www.devbg.org/forum/index.php" />
+            <input onclick="mainFunction()" type="submit" name="submit" value="Submit" />
+        </div>
+        <script>
+
+            function createURLObject(protocol, server, resourse) {
+                return {
+                    protocol: protocol,
+                    server: server,
+                    resourse: resourse
+                }
+            }
+
+            function mainFunction() {
+
+                var inputStr = jsConsole.jsReadString(); // reads the value from the input
+
+                var protocol = inputStr.substring(0, inputStr.indexOf(":"));
+                var server = inputStr.substring(inputStr.indexOf("//") + 2, inputStr.indexOf("/", inputStr.indexOf("//") + 2));
+                var resourse = inputStr.substring(inputStr.indexOf("/", inputStr.indexOf("//") + 2));
+
+                var urlObject = createURLObject(protocol, server, resourse);
+
+                jsConsole.jsWriteLine("protocol: " + '"' + urlObject.protocol + '",');
+                jsConsole.jsWriteLine("server: " + '"' + urlObject.server + '",');
+                jsConsole.jsWriteLine("resourse: " + '"' + urlObject.resourse + '"')
+
+            }
+
+        </script>
+    </div>
+</body>
+</html>

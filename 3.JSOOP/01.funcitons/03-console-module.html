@@ -1,0 +1,76 @@
+﻿<!-- Create a module to work with the console object.
+Implement functionality for:
+- Writing a line to the console
+- Writing a line to the console using a format
+- Writing to the console should call toString() to each element
+- Writing errors and warnings to the console with and without format
+ -->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Console Module</title>
+</head>
+<body>
+    <div id="content">
+        <script>
+
+            var specialConsole = (function () {
+
+                function stringFormat() {
+                    var i = 0,
+                        start,
+                         end = 0,
+                         resultArr = [];
+
+                    start = arguments[0][0].indexOf("{", i);
+
+                    if (start == -1) {
+                        resultArr.push(arguments[0][0]);
+                    } else {
+                        while (start != -1) {
+                            i += 1;
+                            resultArr.push(arguments[0][0].substring(end, start) + arguments[0][i]);
+                            end = start + 3;
+                            start = arguments[0][0].indexOf("{", end);
+                        }
+                    }
+
+                    return resultArr.join('');
+                }
+
+                function writeLine() {
+                    console.log(stringFormat(arguments));
+
+                }
+
+                function writeError() {
+                    console.error(stringFormat(arguments));
+                }
+
+                function writeWarning() {
+                    console.warn(stringFormat(arguments));
+                }
+
+                return {
+                    writeLine: writeLine,
+                    writeError: writeError,
+                    writeWarning: writeWarning
+                }
+
+            })();
+
+            specialConsole.writeLine("Message: hello");
+            //logs to the console "Message: hello"
+            specialConsole.writeLine("Message: {0}", "hello");
+            //logs to the console "Message: hello"
+            specialConsole.writeError("Error: {0}", "Something happened");
+            specialConsole.writeWarning("Warning: {0} {1}", "A warning", "zzzzzzzzzz");
+
+
+        </script>
+    </div>
+</body>
+</html>

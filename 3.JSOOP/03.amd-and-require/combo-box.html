@@ -1,0 +1,22 @@
+﻿<!-- Implement a ComboBox control -->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>ComboBox</title>
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <script id="person-template" type="text/x-handlebars-template">
+        {{#each people}}
+        <div class="person-item" id="person-item-{{id}}">
+            <strong class="person-name">{{name}}</strong><p class="person-age">{{age}}</p>
+            <img src="{{avatarUrl}}" width="100px" />
+        </div>
+        {{/each}}
+    </script>
+    <script src="scripts/libs/require.js" data-main="scripts/app"></script>
+</body>
+</html>

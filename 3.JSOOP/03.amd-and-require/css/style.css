@@ -1,0 +1,6 @@
+﻿#container { font-family: Arial, sans-serif; width: 330px; }
+.person-item { display: none; margin: 15px 0; background: #efeff2; padding: 15px; }
+.person-item:first-child { display: block; }
+.person-item:hover { background: #e6e7e8; }
+.person-item img { vertical-align: middle; }
+.person-item p { display: inline-block; margin: 0 10px; }

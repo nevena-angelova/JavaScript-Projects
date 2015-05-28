@@ -1,0 +1,71 @@
+﻿<!-- Write a function that makes a deep copy of an object. The function should work for both primitive and reference types
+ -->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Deep Copy Of An Object</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="js-console.js"></script>
+</head>
+<body>
+    <section id="container">
+        <script>
+
+            function deepCopy(original) {
+                if (original.constructor === Array) {
+                    var copy = [];
+                    for (var i in original) {
+                        copy[i] = original[i];
+                    }
+                    return copy;
+
+                }
+                else if (original.constructor === Object) {
+                    var copy = {};
+                    for (var i in original) {
+                        copy[i] = original[i];
+                    }
+                    return copy;
+
+                }
+                else if (original.constructor === Date) {
+                    var copy = new Date(original.getTime());
+                    return copy;
+                }
+                else {
+                    return original;
+
+                }
+            }
+
+            var num = 5;
+            var array = [3, 5, 35, 12, -5, 17];
+            var obj = { name: 'Saho', age: 17 };
+            var date = new Date();
+
+            var arrayCopy = deepCopy(array);
+            var numCopy = deepCopy(num);
+            var objCopy = deepCopy(obj);
+            var dateCopy = deepCopy(date);
+
+            arrayCopy[0] = 0;
+            numCopy = 20;
+            objCopy.age = 23;
+            dateCopy = new Date(1990, 9, 23);
+
+            jsConsole.jsWriteLine(num);
+            jsConsole.jsWriteLine(numCopy);
+            jsConsole.jsWriteLine(array.join(", "));
+            jsConsole.jsWriteLine(arrayCopy.join(", "));
+            jsConsole.jsWriteLine(obj.name + ", " + obj.age);
+            jsConsole.jsWriteLine(objCopy.name + ", " + objCopy.age);
+            jsConsole.jsWriteLine(date);
+            jsConsole.jsWriteLine(dateCopy);
+
+        </script>
+    </section>
+</body>
+</html>

@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Sheep And Rams</title>
+    <script src="scripts/main.js"></script>
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="container">
+        <div id="game">
+            <img src="img/sheep.png" alt="sheep" />
+            <ul id="formerNumbers">
+            </ul>
+            <input id="numberInput" type="text" value="" />
+            <input id="numberSubmit" type="button" value="Submit" />
+            <div id="errorMsg"></div>
+        </div>
+        <div id="gameEnd" class="hidden">
+            <h2>Congratulations!</h2>
+            <h3>You guessed <span id="guessedNumber"></span></h3>
+            <label>Enter your nickname:</label>
+            <input id="nickInput" type="text" value="" />
+            <input id="nickSubmit" type="button" value="Submit" />
+            <ul id="highScore"></ul>
+            <input id="newGame" type="button" value="New game" />
+        </div>
+    </div>
+</body>
+</html>

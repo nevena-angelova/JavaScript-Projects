@@ -1,0 +1,12 @@
+﻿* {margin: 0; padding: 0; }
+
+ul {list-style-type: none; }
+
+#content { width: 700px; margin: 20px auto; font-size: 14px; font-family: Arial, sans-serif; -ms-word-wrap: break-word; word-wrap: break-word; }
+#content h1 {font-size: 20px;}
+#messages {height: 450px; overflow: auto; margin: 10px 0; border: 1px solid #d9e5ff; }
+#messages li {padding: 5px; }
+#messages li:nth-child(2n+1){background-color: #d9e5ff; }
+
+#new-msg-tb { width: 578px; resize: vertical; vertical-align: top; padding: 0 5px; font-size: 17px; border: 1px solid #d9e5ff; font-family: Arial, sans-serif;}
+#send-msg-btn {height: 36px; width: 100px; float: right; font-size: 20px; color: #fff; border: none; background-color: #18c974; border-radius: 2px; }

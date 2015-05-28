@@ -1,0 +1,105 @@
+﻿<!-- Write a function that groups an array of persons by age, first or last name. The function must return an associative array,
+with keys - the groups, and values -arrays with persons in this groups
+Use function overloading (i.e. just one function)
+
+var persons = {…};
+var groupedByFname = group(persons,"firstname");
+var groupedByAge= group(persons,"age");
+    
+-->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Check If Object Contains Property</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="js-console.js"></script>
+</head>
+<body>
+    <section id="container">
+        <h1>Enter "first name", "last name" and "age" of a person separated by space:</h1>
+        <input id="inputNum" type="text" name="inputNum" value="Sasho Kirilov 23" />
+        <input onclick="addPerson()" type="submit" value="Add Person" />
+        <h1>Enter a first name, last name or age for grouping persons:</h1>
+        <input id="inputNum2" type="text" name="inputNum" value="23" />
+        <input onclick="mainFunction()" type="submit" value="Group By Propery" />
+
+        <script>
+
+            var persons = [];
+
+            function createPerson(fName, lName, age) {
+                return {
+
+                    fName: fName,
+                    lName: lName,
+                    age: age
+                }
+            }
+
+            function addPerson() { // on "Add Person" button click
+
+                var inputArray = jsConsole.jsReadSplitString();
+                var fName = inputArray[0];
+                var lName = inputArray[1];
+                var age = parseInt(inputArray[2]);
+
+                var person = createPerson(fName, lName, age);
+                persons.push(person);
+
+                jsConsole.jsWriteLine("-> " + person.fName + " " + person.lName + " " + person.age);
+
+            }
+
+            function group(persons, key) {
+
+                var groupedPersons = new Object();
+                groupedPersons[key] = new Array();
+
+                for (var i = 0; i < persons.length; i++) {
+
+                    if (persons[i].fName == key) {
+                        groupedPersons[key].push(persons[i]);
+                    }
+                    else if (persons[i].lName == key) {
+                        groupedPersons[key].push(persons[i]);
+
+                    }
+                    else if (persons[i].age == key) {
+                        groupedPersons[key].push(persons[i]);
+                    }
+                }
+
+                return groupedPersons;
+            }
+
+
+            function mainFunction() { // on "Group By Propery" button click
+
+                var key = document.getElementById("inputNum2").value;
+
+                var groupedByKeyResult = new Object();
+                groupedByKeyResult = group(persons, key);
+
+                jsConsole.jsWrite('"' + key + '": ')
+
+                if (groupedByKeyResult[key].length > 0) {
+                    for (var i = 0; i < groupedByKeyResult[key].length; i++) {
+                        jsConsole.jsWrite(groupedByKeyResult[key][i].fName + " " + groupedByKeyResult[key][i].lName + " " + groupedByKeyResult[key][i].age + "; ");
+                    }
+
+                }
+                else {
+                    jsConsole.jsWrite(" no person with this property!");
+                }
+
+                jsConsole.jsAddBr();
+
+            }
+
+        </script>
+    </section>
+</body>
+</html>

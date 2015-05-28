@@ -1,0 +1,48 @@
+﻿<!-- Write a function that extracts the content of a html page given as text. The function should return anything that is in a tag, without the tags:
+
+<html><head><title>Sample site</title></head><body><div>text<div>more text</div>and more...</div>in body</body></html>
+
+result:
+Sample sitetextmore textand more...in body
+
+ -->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Extract Text From Html</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="js-console.js"></script>
+</head>
+<body>
+    <div id="container">
+        <script>
+
+            String.prototype.htmlEscape = function () {
+                var escapedStr = String(this).replace(/</g, '&lt;');
+                escapedStr = escapedStr.replace(/>/g, '&gt;');
+                return escapedStr;
+            }
+
+            var html = "<html><head><title>Sample site </title></head><body><div>text <div>more text</div> and more...</div> in body</body></html>";
+            var htmlEscaped = html.htmlEscape();
+
+            jsConsole.jsWriteLine(htmlEscaped);
+
+            var nextTagStart;
+            var result = '';
+
+            for (var previousTagEnd = 0, len = html.length; previousTagEnd < len; previousTagEnd++) {
+                nextTagStart = html.indexOf("<", previousTagEnd);
+                result += html.substring(previousTagEnd, nextTagStart);
+                previousTagEnd = html.indexOf(">", previousTagEnd);
+            }
+
+            jsConsole.jsWriteLine(result);
+
+        </script>
+    </div>
+</body>
+</html>

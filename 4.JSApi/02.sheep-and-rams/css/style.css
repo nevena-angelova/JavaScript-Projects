@@ -1,0 +1,25 @@
+﻿* { margin: 0; padding: 0; }
+body { font-size: 18px; font-family: Calibri, Arial, sans-serif; }
+ul li { list-style-type: none; }
+
+.hidden { display: none; }
+
+#container { position: relative; overflow: auto; width: 620px; min-height: 350px; padding: 10px; margin: 10px auto; border: 1px solid #153887; background: #fff; border-radius: 2px; }
+#container input { vertical-align: middle; border-radius: 2px; }
+
+#formerNumbers { float: right; }
+#game img { position: absolute; bottom: 10px; left: 10px; }
+#game input[type="text"] { height: 40px; width: 96px; border: 1px solid #153887; font-size: 30px; text-align: center; }
+#game input[type="button"] { height: 42px; width: 100px; border: none; background: #ff8d00; color: #fff; font-size: 22px; }
+#errorMsg { color: red; margin-top: 20px; font-size: 18px; }
+
+#gameEnd label { display: block; margin: 15px 0 5px 0; }
+#gameEnd input[type="text"] { height: 36px; width: 220px; padding: 0 5px; font-size: 20px; border: 1px solid #153887; }
+#gameEnd #nickSubmit { height: 38px; width: 100px; color: #fff; font-size: 22px; background: #153887; border: none; }
+
+#gameEnd { padding-bottom: 50px; }
+#gameEnd #newGame { position: absolute; bottom: 10px; left: 10px; width: 160px; height: 50px; color: #fff; font-size: 26px; background-color: #a2c617; border: none; }
+
+#gameEnd #highScore {margin: 10px 0; }
+#gameEnd #highScore li {padding: 3px; border: 1px solid #d9e5ff;}
+#gameEnd #highScore li:nth-child(2n+1) { background-color: #d9e5ff; }

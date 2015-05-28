@@ -1,0 +1,73 @@
+﻿<!--Create a tag cloud:  Visualize a string of tags (strings) in a given container  By given minFontSize and maxFontSize, generate the tags with different font-size, depending on the number of occurrences
+var tags = ["cms", "javascript", "js",  "ASP.NET MVC", ".net", ".net", "css",  "wordpress", "xaml", "js", "http", "web",  "asp.net", "asp.net MVC", "ASP.NET MVC",  "wp", "javascript", "js", "cms", "html",  "javascript", "http", "http", "CMS"]
+var tagCloud = generateTagCloud(tags,17,42);-->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Tag Cloud</title>
+
+</head>
+<body>
+    <div id="container">
+        <script>
+
+            var tags = ["cms", "javascript", "js", "ASP.NET MVC", ".net", ".net", "css", "wordpress", "xaml", "js", "http", "web", "asp.net", "asp.net MVC", "ASP.NET MVC", "wp", "javascript", "js", "cms", "html", "javascript", "http", "http", "CMS"]
+            var tagCloud = generateTagCloud(tags, 17, 42);
+
+            function generateTagCloud(tags, minFontSize, maxFontSize) {
+                var groupedTags = {},
+                    currentTagsItem = tags[0],
+                    maxCount = 0;
+                    minCount = Number.MAX_VALUE;
+
+                // fills groupedTags associative array with keys - tag array's unique items, values - how many times the relevant item appears.
+
+                for (var i = 0, len = tags.length; i < len; i++) {
+                    currentTagsItem = tags[i];
+
+                    if (!groupedTags[currentTagsItem]) {
+                        groupedTags[currentTagsItem] = 1;
+                    }
+                    else {
+                        groupedTags[currentTagsItem]++;
+                    }
+                }
+
+                for (var tag in groupedTags) {
+
+                    if (groupedTags[tag] > maxCount) {
+                        maxCount = groupedTags[tag];
+                    }
+                    if (groupedTags[tag] < minCount) {
+                        minCount = groupedTags[tag];
+                    }
+                }
+
+                var countDifference = maxCount - minCount,
+                    font,
+                    fontDifference = maxFontSize - minFontSize,
+                    resultTag,
+                    resultFragment = document.createDocumentFragment();
+
+                for (var tag in groupedTags) {
+
+                    font = minFontSize + fontDifference * ((groupedTags[tag] - 1) / (countDifference));
+
+                    resultTag = document.createElement('span');
+                    resultTag.innerHTML = tag;
+                    resultTag.style.fontSize = font + 'px';
+                    resultTag.style.marginRight = '10px';
+
+                    resultFragment.appendChild(resultTag);
+                }
+
+                document.getElementById('container').appendChild(resultFragment);
+            }
+
+        </script>
+    </div>
+</body>
+</html>

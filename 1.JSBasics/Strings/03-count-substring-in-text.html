@@ -1,0 +1,56 @@
+﻿<!-- Write a JavaScript function that finds how many times a substring is contained in a given text (perform case insensitive search).
+Example: The target substring is "in". The text is as follows:
+We are living in an yellow submarine. We don't have anything else. Inside the submarine is very tight. So we are drinking all the day. We will move out of it in 5 days.
+The result is: 9.
+ -->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Count Substring In Text</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="js-console.js"></script>
+</head>
+<body>
+    <div id="container">
+        <p id="text">We are living in an yellow submarine. We don't have anything else. Inside the submarine is very tight. So we are drinking all the day. We will move out of it in 5 days.</p>
+        <h1>Enter a substring to be found:</h1>
+        <div>
+            <input id="inputStr" type="text" name="inputString" value="in" />
+            <input onclick="mainFunction()" type="submit" name="submit" value="Submit" />
+        </div>
+        <script>
+
+            function countSubstrOccurance(text, substr) {
+
+                var counter = 0;
+                var index;
+
+                for (var i = 0, len = text.length; i < len; i++) {
+                    
+                    index = text.indexOf(substr, i);
+
+                    if (index != -1) {
+                        counter++;
+                        i = index + substr.length;
+                    }
+                }
+
+                return counter;
+            }
+
+            function mainFunction() {
+
+                var text = document.getElementById("text").innerHTML.toLowerCase();
+                var substr = jsConsole.jsReadString(); // reads the value from the input
+
+                jsConsole.jsWriteLine(countSubstrOccurance(text, substr));
+
+            }
+
+        </script>
+    </div>
+</body>
+</html>

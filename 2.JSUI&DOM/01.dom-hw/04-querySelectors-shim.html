@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>querySelector and querySelectorAll shims</title>
+</head>
+<body>
+    <div id="content">
+        <div id="nav">
+            <ul>
+                <li>nav item one</li>
+                <li>nav item two</li>
+                <li>nav item three</li>
+            </ul>
+        </div>
+        Some text...
+        <p>paragraph one</p>
+        <p class="even">paragraph two</p>
+        <p>paragraph three</p>
+        <p class="even">paragraph four</p>
+    </div>
+
+    <script>
+
+        if (typeof String.prototype.trim !== 'function') { // string trim shim
+            String.prototype.trim = function () {
+                return this.replace(/^\s+|\s+$/g, '');
+            }
+        }
+
+        if (!document.getElementsByClassName) { // getElementsByClassName shim
+            document.getElementsByClassName = function getElementsByClassName(classname) {
+                var a = [];
+                var re = new RegExp('(^| )' + classname + '( |$)');
+                var els = document.getElementsByTagName("*");
+                for (var i = 0, j = els.length; i < j; i++) {
+                    if (re.test(els[i].className)) {
+                        a.push(els[i]);
+                    }
+                }
+                return a;
+            }
+        }
+
+        if (!document.querySelector) {
+
+            document.querySelector = function (str) {
+
+                str = str.trim();
+                var strArr = str.split(" ");
+                var tempSlect;
+
+                for (var i = 0; i < strArr.length; i++) {
+
+                    if (strArr[i].charAt(0) == '.') { // the first element with this class
+                        tempSlect = document.getElementsByClassName(strArr[i].substr(1))[0];
+                    }
+                    else if (strArr[i].charAt(0) == '#') {
+                        tempSlect = document.getElementById(strArr[i].substr(1));
+                    }
+                    else {
+                        tempSlect = document.getElementsByTagName(strArr[i])[0]; // the first tag of this kind
+                    }
+                }
+
+                return tempSlect;
+            }
+        }
+
+        if (!document.querySelectorAll) {
+
+            document.querySelectorAll = function (str) {
+
+                str = str.trim();
+                var strArr = str.split(" ");
+                var tempSlect;
+
+                for (var i = 0; i < strArr.length; i++) {
+
+                    if (strArr[i].charAt(0) == '#') {
+                        tempSlect = document.getElementById(strArr[i].substr(1));
+                    }
+                    else if (strArr[i].charAt(0) == '.') { // all the element with this class
+                        tempSlect = document.getElementsByClassName(strArr[i].substr(1));
+                    }
+                    else {
+                        tempSlect = document.getElementsByTagName(strArr[i]); // all the tags of this kind
+                    }
+                }
+
+                return tempSlect;
+
+            }
+        }
+
+        // test
+
+        //var querySelected = document.querySelector("#content .even").innerHTML;
+
+        //alert(querySelected);
+
+        var querySelectedAll = document.querySelectorAll("#nav li");
+
+        for (var index in querySelectedAll) {
+            if (querySelectedAll[index].innerHTML) {
+                alert(querySelectedAll[index].innerHTML);
+            }
+        }
+
+    </script>
+
+</body>
+</html>
